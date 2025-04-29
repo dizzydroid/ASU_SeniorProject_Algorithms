@@ -1,4 +1,5 @@
 package edu.ainshams.cse332s.task2;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -75,6 +76,10 @@ public class KnightTour {
         }
         return false;
     }
+    
+    
+    
+
     public boolean knightOpenTour(int x, int y, int moveCount) {
         if (moveCount == n * n) {
         	no_of_move=moveCount-1;
@@ -103,5 +108,71 @@ public class KnightTour {
         moves.sort(Comparator.comparingInt(m -> m.degree));
         shuffleSameDegreeMoves(moves);
         return moves;
+    }
+
+    
+    
+    
+    
+    public int countVisitedCells() {
+        int count = 0;
+        for (int[] row : board)
+            for (int cell : row)
+                if (cell != -1) count++;
+        return count;
+    }
+    
+    
+
+    public void printBoard() {
+        System.out.println("Board state:");
+        for (int[] row : board) {
+            for (int cell : row)
+                System.out.printf("%3d ", cell);
+            System.out.println();
+        }
+    }
+
+    
+    
+    private boolean isSafe(int x, int y) {
+        return (x >= 0 && y >= 0 && x < n && y < n && board[x][y] == -1);
+    }
+    
+    
+
+    private int countPossibleMoves(int x, int y) {
+        int count = 0;
+        for (int[] option : options) {
+            int nx = x + option[0];
+            int ny = y + option[1];
+            if (isSafe(nx, ny)) count++;
+        }
+        return count;
+    }
+
+    private boolean isOneKnightMoveAway(int x1, int y1, int x2, int y2) {
+        for (int[] option : options)
+            if (x1 + option[0] == x2 && y1 + option[1] == y2) return true;
+        return false;
+    }
+
+    private void shuffleSameDegreeMoves(List<Move> moves) {
+        int i = 0;
+        while (i < moves.size()) {
+            int j = i;
+            while (j < moves.size() && moves.get(j).degree == moves.get(i).degree) j++;
+            Collections.shuffle(moves.subList(i, j), random);
+            i = j;
+        }
+    }
+
+    static class Move {
+        int x, y, degree;
+        Move(int x, int y, int degree) {
+            this.x = x;
+            this.y = y;
+            this.degree = degree;
+        }
     }
 }
