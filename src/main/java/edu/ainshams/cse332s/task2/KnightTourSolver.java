@@ -13,9 +13,14 @@ public class KnightTourSolver {
         long startTime = System.currentTimeMillis();
 
         if (n < 5) {
-            System.out.println("For n < 5, using special handling...");
             if (n == 1) {
-                System.out.println("Trivial case: 1×1 board has only one cell.");
+                System.out.println("For n < 5, using special handling...");
+                System.out.println("Trivial case: 1 x 1 board has only one cell.");
+                solver.printBoard();
+            } else {
+                System.out.println("For n < 5, using special handling...");
+                System.out.println("No closed knight's tour exists for n = " + n);
+                System.out.println("All cells visited (open tour)");
                 solver.printBoard();
             }
             // Early exit for boards too small
@@ -57,18 +62,12 @@ public class KnightTourSolver {
         System.out.println("Time Taken: " + (endTime - startTime) + " ms");
         System.out.println("Minimum number of moves the chess knight needs: " + solver.getno_of_move());
     }
-}
 
-
-/* main 
-import java.util.Scanner;
-@SuppressWarnings("unused")
-public class Main{
-    public static void main(String[] args) {
+    public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter board size n : ");
         int n = sc.nextInt();
-        KnightTourSolver . run_task2(n);  // Calls the runner
+        run_task2(n);  // Calls the runner
+        sc.close();
     }
 }
-*/
