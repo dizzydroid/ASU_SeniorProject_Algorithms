@@ -12,24 +12,30 @@ public class KnightTour {
     private final int[][] board;
     private int no_of_move=0;
     private final Random random = new Random();
+    
     /*      0    (-1,-2)  0  (1,-2)    0
      *    (-2,-1)    0    0    0     (2,-1)
      *      0        0    h    0       0 
      *   (-2,1)      0    0    0     (2,1)
      *     0      (-1,2)  0  (1,2)    0
      */
+    
+    //options of moves
     private final int[][] options = {
         {2, 1}, {1, 2}, {-1, 2}, {-2, 1},
         {-2, -1}, {-1, -2}, {1, -2}, {2, -1}
     };
 
     
-    
+    // constructor 
     public KnightTour(int size) {
         this.n = size;
         this.board = new int[n][n];
     }
 
+    
+    //if n is even --> ( n/2 , n/2 ) 
+    //if n is odd  --> ( 0 , 0 )
     public void initializeBoard() {
         for (int[] row : board) Arrays.fill(row, -1);
         if (n % 2 == 0) {
@@ -42,6 +48,9 @@ public class KnightTour {
         board[startX][startY] = 0;
     }
 
+    
+    
+    // all cells equal -1
     public void resetBoard() {
         for (int[] row : board) Arrays.fill(row, -1);
         board[startX][startY] = 0;
@@ -62,10 +71,12 @@ public class KnightTour {
     }
 
     
+    
+    //test to make close tour 
     public boolean knightClosedTour(int x, int y, int moveCount) {
         if (moveCount == n * n) {
         	no_of_move=moveCount-1;
-            return isOneKnightMoveAway(x, y, startX, startY);
+            return arrived(x, y, startX, startY);
         }
 
         List<Move> nextMoves = getNextMoves(x, y, true, moveCount);
@@ -79,7 +90,7 @@ public class KnightTour {
     
     
     
-
+    //test to make open tour
     public boolean knightOpenTour(int x, int y, int moveCount) {
         if (moveCount == n * n) {
         	no_of_move=moveCount-1;
@@ -94,13 +105,15 @@ public class KnightTour {
         return false;
     }
 
+    
+    
     private List<Move> getNextMoves(int x, int y, boolean closed, int moveCount) {
         List<Move> moves = new ArrayList<>();
         for (int[] option : options) {
             int nx = x + option[0];
             int ny = y + option[1];
-            if (isSafe(nx, ny)) {
-                if (closed && moveCount == n * n - 1 && !isOneKnightMoveAway(nx, ny, startX, startY)) continue;
+            if (accept_point(nx, ny)) {
+                if (closed && moveCount == n * n - 1 && !arrived(nx, ny, startX, startY)) continue;
                 int degree = countPossibleMoves(nx, ny);
                 moves.add(new Move(nx, ny, degree));
             }
@@ -113,7 +126,7 @@ public class KnightTour {
     
     
     
-    
+    //count no of cell is visited
     public int countVisitedCells() {
         int count = 0;
         for (int[] row : board)
@@ -123,7 +136,7 @@ public class KnightTour {
     }
     
     
-
+    //print board
     public void printBoard() {
         System.out.println("Board state:");
         for (int[] row : board) {
@@ -134,29 +147,32 @@ public class KnightTour {
     }
 
     
-    
-    private boolean isSafe(int x, int y) {
+    //point is accept to move knight 
+    private boolean accept_point(int x, int y) {
         return (x >= 0 && y >= 0 && x < n && y < n && board[x][y] == -1);
     }
     
     
-
+    //count no of accpt moves in next point 
     private int countPossibleMoves(int x, int y) {
         int count = 0;
         for (int[] option : options) {
             int nx = x + option[0];
             int ny = y + option[1];
-            if (isSafe(nx, ny)) count++;
+            if (accept_point(nx, ny)) count++;
         }
         return count;
     }
 
-    private boolean isOneKnightMoveAway(int x1, int y1, int x2, int y2) {
+    
+    // final point can arrived to start point  
+    private boolean arrived (int x1, int y1, int x2, int y2) {
         for (int[] option : options)
             if (x1 + option[0] == x2 && y1 + option[1] == y2) return true;
         return false;
     }
 
+     // make shuffle for same degree
     private void shuffleSameDegreeMoves(List<Move> moves) {
         int i = 0;
         while (i < moves.size()) {
@@ -167,6 +183,9 @@ public class KnightTour {
         }
     }
 
+    
+    
+    // class every object of this class contain x,y ,degree(no of possible moves of this point )
     static class Move {
         int x, y, degree;
         Move(int x, int y, int degree) {
