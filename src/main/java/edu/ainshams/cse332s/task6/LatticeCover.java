@@ -1,8 +1,7 @@
 package edu.ainshams.cse332s.task6;
-
 import java.util.*;
 
-public class LatticeSolver {
+public class LatticeCover {
 
     record Point(int x, int y) {}
     record Segment(Point start, Point end) {}
@@ -14,7 +13,7 @@ public class LatticeSolver {
     private Map<Point, Integer> indexPointMap; // Optional: Map Point to index for bitmask state
 
 
-    public LatticeSolver(int n) {
+    public LatticeCover(int n) {
         if (n <= 2) {
             throw new IllegalArgumentException("n must be greater than 2");
         }
@@ -308,18 +307,18 @@ public class LatticeSolver {
     }
 
     // Main method for testing
-    public static void main(String args) {
+    public static void main(String[] args) {
         int n = 3; // Example: 3x3 grid
         if (args.length > 0) {
             try {
-                n = Integer.parseInt(args);
+                n = Integer.parseInt(args[0]);
             } catch (NumberFormatException e) {
                 System.err.println("Invalid input for n, using default n=3.");
             }
         }
 
         System.out.println("Attempting to solve for n=" + n);
-        LatticeSolver solver = new LatticeSolver(n);
+        LatticeCover solver = new LatticeCover(n);
         long startTime = System.currentTimeMillis();
         List<Segment> solution = solver.solve();
         long endTime = System.currentTimeMillis();
