@@ -1,7 +1,7 @@
 package edu.ainshams.cse332s.task4;
 import java.util.*;
 
-public class KnightExchange {
+public class KnightsExchange {
     // Board dimensions
     private static final int ROWS = 4;
     private static final int COLS = 3;
