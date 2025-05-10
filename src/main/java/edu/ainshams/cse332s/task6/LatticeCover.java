@@ -63,8 +63,7 @@ public class LatticeCover {
                 if (!initialCovered.isEmpty()) {
                     List<Segment> path = new ArrayList<>();
                     path.add(startSegment);
-                    Set<Point> covered = new HashSet<>(initialCovered);
-
+                    
                     // // --- Using Set for covered points ---
                     // if (backtrackSet(p1, path, covered, 1)) {
                     //     return path; // Solution found
@@ -86,56 +85,6 @@ public class LatticeCover {
         }
         return null; // No solution found
     }
-
-    // Backtracking using Set (simpler state, potentially slower)
-    private boolean backtrackSet(Point currentPoint, List<Segment> path, Set<Point> coveredPoints, int linesUsed) {
-        if (coveredPoints.size() == n * n && linesUsed == TARGET_LINES) {
-            return true; // Success
-        }
-        if (linesUsed >= TARGET_LINES) {
-            return false; // Too many lines
-        }
-
-        List<Point> candidateNextPoints = generateCandidatePoints(currentPoint, path);
-
-        for (Point nextPoint : candidateNextPoints) {
-             if (nextPoint.equals(currentPoint)) continue; // Avoid zero-length segments
-            Segment newSegment = new Segment(currentPoint, nextPoint);
-
-            // Avoid immediate retracing
-            if (linesUsed > 0) {
-                Segment lastSegment = path.get(path.size() - 1);
-                if (nextPoint.equals(lastSegment.start()) && currentPoint.equals(lastSegment.end())) {
-                    continue;
-                }
-            }
-
-            Set<Point> newlyCoveredOnSegment = getPointsOnSegment(newSegment);
-            Set<Point> newlyAddedToCoverage = new HashSet<>(); // Track points newly covered by this step
-
-            for(Point p : newlyCoveredOnSegment) {
-                 // Only consider actual lattice points for coverage goal
-                if (allLatticePoints.contains(p)) {
-                    if (coveredPoints.add(p)) { // add returns true if the element was not already present
-                        newlyAddedToCoverage.add(p);
-                    }
-                }
-            }
-
-            path.add(newSegment); // Add segment to path
-
-            if (backtrackSet(nextPoint, path, coveredPoints, linesUsed + 1)) {
-                return true; // Solution found down this branch
-            }
-
-            // Backtrack: Remove segment and undo coverage changes
-            path.remove(path.size() - 1);
-            coveredPoints.removeAll(newlyAddedToCoverage); // Efficiently remove only the points added at this step
-        }
-
-        return false; // No solution found from this state
-    }
-
 
      // Backtracking using Bitmask (more complex state, potentially faster with memoization)
     private record Pair<K, V>(K key, V value) {} // Simple Pair class for memoization key
@@ -176,6 +125,7 @@ public class LatticeCover {
 
             Set<Point> newlyCoveredOnSegment = getPointsOnSegment(newSegment);
             int nextState = currentState;
+            @SuppressWarnings("unused")
             int bitsAdded = 0; // Track which bits were flipped for rollback
 
             for(Point p : newlyCoveredOnSegment) {
@@ -391,4 +341,5 @@ public class LatticeCover {
             System.out.println("No solution found for n=" + n);
         }
          System.out.println("Time taken: " + (endTime - startTime) + " ms");
+        scanner.close();
     }}
