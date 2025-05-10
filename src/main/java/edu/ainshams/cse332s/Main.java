@@ -5,6 +5,7 @@ import edu.ainshams.cse332s.task2.KnightTourSolver;
 import edu.ainshams.cse332s.task3.TowerOfHanoiSolver;
 import edu.ainshams.cse332s.task5.ShooterGameSolver;
 import edu.ainshams.cse332s.task6.LatticeCoverSolver;
+import edu.ainshams.cse332s.task4.KnightsExchange;
 
 import java.util.Scanner;
 
@@ -238,10 +239,9 @@ public class Main {
         System.out.println(ANSI_BOLD + ANSI_YELLOW + "\n===== " + EMOJI_KNIGHT_EXCHANGE + " Task 4: Knights Exchange " + EMOJI_KNIGHT_EXCHANGE + " =====" + ANSI_RESET);
         
         try {
-            //TODO
-            System.out.println(ANSI_PURPLE + "This task is not yet implemented." + ANSI_RESET);
+            System.out.println(ANSI_PURPLE + "Loading Knights Exchange Solver..." + ANSI_RESET);
+            KnightsExchange.main(new String[0]);
             
-            // KnightsExchangeSolver.run(scanner);
         } catch (Exception e) {
             System.out.println(ANSI_RED + EMOJI_ERROR + " An error occurred: " + e.getMessage() + ANSI_RESET);
         }
