@@ -1,7 +1,7 @@
 package edu.ainshams.cse332s.task4;
 import java.util.*;
 
-public class KnightExchange {
+public class KnightsExchange {
     // Board dimensions
     private static final int ROWS = 4;
     private static final int COLS = 3;
@@ -196,7 +196,7 @@ public class KnightExchange {
                 int dist = getDistance(knight.row, knight.col, 0, col);
                 minDist = Math.min(minDist, dist);
             }
-            // Apply a higher weight to white knights further from their goal
+            
             total += minDist * minDist;
         }
         
@@ -209,7 +209,7 @@ public class KnightExchange {
                 int dist = getDistance(knight.row, knight.col, 3, col);
                 minDist = Math.min(minDist, dist);
             }
-            // Apply a higher weight to black knights further from their goal
+            
             total += minDist * minDist;
         }
         return total;
@@ -256,7 +256,7 @@ public class KnightExchange {
         return true;
     }
     
-    // Optimized move finder between states
+    
     private static Move findMove(State prevState, State nextState) {
         for (int k = 0; k < prevState.knights.length; k++) {
             Knight pk = prevState.knights[k];
@@ -269,7 +269,7 @@ public class KnightExchange {
         return null;
     }
     
-    // Highly optimized search targeting the 16-move solution 
+   
     public static List<Move> findOptimalSolution() {
         // Initialize starting knights positions
         Knight[] initialKnights = {
@@ -347,11 +347,11 @@ public class KnightExchange {
         return new ArrayList<>();
     }
     
-    // Generate a compact unique key for fast hash lookups
+    
     private static String getStateKey(State state) {
         StringBuilder key = new StringBuilder(24); // Pre-sized for efficiency
         for (Knight knight : state.knights) {
-            key.append(knight.type.charAt(0)) // Just use first char (w/b)
+            key.append(knight.type.charAt(0)) 
                .append(knight.row)
                .append(knight.col);
         }
