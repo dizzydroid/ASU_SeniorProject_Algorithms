@@ -2,11 +2,6 @@ package edu.ainshams.cse332s.task2;
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
-import java.util.Arrays;
-import java.util.concurrent.ThreadLocalRandom;
-
-
-
 class KnightTour_Greedy {
     int n;
     int no_of_moves = 0;
