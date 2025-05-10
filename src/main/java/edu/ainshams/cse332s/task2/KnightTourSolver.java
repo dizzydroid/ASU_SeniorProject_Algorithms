@@ -93,6 +93,19 @@ public class KnightTourSolver {
         System.out.println("Minimum number of moves the chess knight needs: " + solver.getno_of_move());
     }
 
+    public static void run(Scanner scanner) {
+        System.out.print("Enter board size n: ");
+        int n = Integer.parseInt(scanner.nextLine());
+        
+        System.out.println("Using Greedy algorithm only:");
+        run_Greedy_task2(n);
+        
+        System.out.println("----------------------------------------");
+        
+        System.out.println("Using Greedy algorithm and Backtracking:");
+        run_Greedy_backtracking_task2(n);
+    }
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         System.out.print("Enter board size n : ");

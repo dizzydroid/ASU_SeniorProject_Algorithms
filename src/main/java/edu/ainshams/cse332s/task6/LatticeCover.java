@@ -306,15 +306,52 @@ public class LatticeCover {
         return generateCandidatePoints(new Point(-100,-100), Collections.emptyList());
     }
 
+    public void runWithScanner(Scanner scanner) {
+        System.out.println("\nAttempting to solve for n=" + n);
+        long startTime = System.currentTimeMillis();
+        List<Segment> solution = solve();
+        long endTime = System.currentTimeMillis();
+
+        if (solution != null) {
+            System.out.println("Solution found for n=" + n + " with " + solution.size() + " lines:");
+            for (Segment s : solution) {
+                System.out.println("  Segment from (" + s.start().x() + "," + s.start().y() +
+                               ") to (" + s.end().x() + "," + s.end().y() + ")");
+            }
+            // Verification
+            Set<Point> coveredBySolution = new HashSet<>();
+            for(Segment s : solution) {
+                coveredBySolution.addAll(getPointsOnSegment(s));
+            }
+            boolean allCovered = true;
+            for(Point p : allLatticePoints) {
+                if (!coveredBySolution.contains(p)) {
+                    allCovered = false;
+                    System.out.println("Error: Point " + p + " not covered!");
+                }
+            }
+            if (allCovered && coveredBySolution.size() >= allLatticePoints.size()) {
+                 System.out.println("Verification: All " + allLatticePoints.size() + " lattice points covered.");
+            } else {
+                 System.out.println("Verification Error: Not all points covered or issue with coverage check.");
+                 System.out.println("Target: " + allLatticePoints.size() + ", Actually Covered: " + coveredBySolution.size());
+            }
+        } else {
+            System.out.println("No solution found for n=" + n);
+        }
+        System.out.println("Time taken: " + (endTime - startTime) + " ms");
+    }
+
     // Main method for testing
     public static void main(String[] args) {
-        int n = 3; // Example: 3x3 grid
-        if (args.length > 0) {
-            try {
-                n = Integer.parseInt(args[0]);
-            } catch (NumberFormatException e) {
-                System.err.println("Invalid input for n, using default n=3.");
-            }
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the lattice size n: ");
+        int n = 3; // Default value
+        
+        try {
+            n = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.err.println("Invalid input for n, using default n=3.");
         }
 
         System.out.println("Attempting to solve for n=" + n);

@@ -1,5 +1,7 @@
 package edu.ainshams.cse332s.task5;
 
+import java.util.Scanner;
+
 /**
  * Solver for the Shooter Game using a divide and conquer algorithm
  * This implementation guarantees finding the target using the divide and conquer paradigm
@@ -8,6 +10,33 @@ public class ShooterGameSolver {
 
     // Sleep time between algorithm steps (in milliseconds) for visualization
     private static final int VISUALIZATION_DELAY = 1000;
+
+    /**
+     * Run the Shooter Game solver with user interaction
+     * @param scanner Scanner object for user input
+     */
+    public static void run(Scanner scanner) {
+        System.out.print("Enter the number of hiding spots: ");
+        int spots = Integer.parseInt(scanner.nextLine());
+        
+        ShooterGame game = new ShooterGame(spots);
+        ShooterGameSolver solver = new ShooterGameSolver();
+        
+        boolean showDebug = false;
+        System.out.print("Show target position for debugging? (y/n): ");
+        String debug = scanner.nextLine().trim().toLowerCase();
+        if (debug.equals("y") || debug.equals("yes")) {
+            showDebug = true;
+        }
+        
+        game.visualizeGame(showDebug);
+        
+        if (showDebug) {
+            solver.solveGameWithDebug(game);
+        } else {
+            solver.solveGame(game);
+        }
+    }
 
     /**
      * Solves the shooter game using a divide and conquer approach
