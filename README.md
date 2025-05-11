@@ -5,9 +5,7 @@
 [![Status](https://img.shields.io/badge/Status-Active-brightgreen)]()
 [![Java](https://img.shields.io/badge/Java-17-blue)]()
 [![Maven](https://img.shields.io/badge/Maven-3.8.1-orange)]()
-[![Java Version](https://img.shields.io/badge/Java-17-orange)]()
 [![License](https://img.shields.io/badge/License-MIT-blue)]()
-[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen)]()
 
 </div>
 
