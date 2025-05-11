@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>edu.ainshams.cse332s</groupId>
-    <artifactId>algorithms-course-project</artifactId>
+    <artifactId>algorithmic-puzzles</artifactId>
     <version>1.0</version>
-    <name>Algorithms Course Project</name>
+    <name>Algorithmic Puzzles</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,4 +1,4 @@
-# 🚀 Classic Algorithm Visualizations & Solvers
+# 🚀 Algorithmic Puzzles: Visualizations & Solvers
 
 <div align="center">
 
